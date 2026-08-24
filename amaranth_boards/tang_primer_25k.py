@@ -14,20 +14,22 @@ class TangPrimer25kDockPlatform(GowinPlatform):
     family = "GW5A-25A"
     default_clk = "clk27"
     resources = [
-        Resource("clk27", 0, Pins("E2", dir="i"),
-                 Clock(27e6), Attrs(IO_TYPE="LVCMOS33")),
-
-        UARTResource( 0, rx="B3", tx="C3",
-                     attrs=Attrs(PULL_MODE="UP", IO_TYPE="LVCMOS33")),
-
-        *SPIFlashResources( 0, cs_n="E6", clk="E7", cipo="D6", copi="E5",
-            attrs=Attrs(IO_TYPE="LVCMOS33")),
-
-        *ButtonResources(pins={0: "H10"}, invert=True,
-                         attrs=Attrs(IO_TYPE="LVCMOS33")),
-        *ButtonResources(pins={1: "H11"}, invert=True,
-                         attrs=Attrs(IO_TYPE="LVCMOS33")),
-
+        Resource(
+            "clk27", 0, Pins("E2", dir="i"), Clock(27e6), Attrs(IO_TYPE="LVCMOS33")
+        ),
+        UARTResource(
+            0, rx="B3", tx="C3", attrs=Attrs(PULL_MODE="UP", IO_TYPE="LVCMOS33")
+        ),
+        *SPIFlashResources(
+            0,
+            cs_n="E6",
+            clk="E7",
+            cipo="D6",
+            copi="E5",
+            attrs=Attrs(IO_TYPE="LVCMOS33"),
+        ),
+        *ButtonResources(pins={0: "H10"}, invert=True, attrs=Attrs(IO_TYPE="LVCMOS33")),
+        *ButtonResources(pins={1: "H11"}, invert=True, attrs=Attrs(IO_TYPE="LVCMOS33")),
         *LEDResources(pins="E8 D7", invert=True, attrs=Attrs(IO_TYPE="LVCMOS33")),
     ]
     connectors = [
@@ -48,11 +50,8 @@ class TangPrimer25kDockPlatform(GowinPlatform):
 
     def toolchain_prepare(self, fragment, name, **kwargs):
         overrides = {
-            "add_options":
-                "set_option -use_mspi_as_gpio 1 -use_sspi_as_gpio 1"
-                " -use_ready_as_gpio 1 -use_done_as_gpio 1",
-            "gowin_pack_opts":
-                "--mspi_as_gpio --sspi_as_gpio --ready_as_gpio --done_as_gpio",
+            "nextpnr_opts": "--vopt sspi_as_gpio--vopt ready_as_gpio --vopt done_as_gpio",
+            "gowin_pack_opts": "--sspi_as_gpio --ready_as_gpio --done_as_gpio",
         }
 
         return super().toolchain_prepare(fragment, name, **overrides, **kwargs)
