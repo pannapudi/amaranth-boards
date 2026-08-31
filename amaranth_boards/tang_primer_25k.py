@@ -75,6 +75,20 @@ class TangPrimer25kPlatform(GowinPlatform):
         ),
     ]
 
+    def toolchain_prepare(self, fragment, name, **kwargs):
+        overrides = {
+            "nextpnr_opts": "--vopt sspi_as_gpio",
+            "gowin_pack_opts": "--sspi_as_gpio --mspi_as_gpio --ready_as_gpio --done_as_gpio --cpu_as_gpio",
+        }
+
+        return super().toolchain_prepare(fragment, name, **overrides, **kwargs)
+
+    def toolchain_program(self, products, name):
+        with products.extract("{}.fs".format(name)) as bitstream_filename:
+            subprocess.check_call(
+                ["openFPGALoader", "-b", "tangprimer25k", "-m", bitstream_filename]
+            )
+
 
 class TangPrimer25kDockPlatform(TangPrimer25kPlatform):
     resources = TangPrimer25kPlatform.resources + [
@@ -97,20 +111,6 @@ class TangPrimer25kDockPlatform(TangPrimer25kPlatform):
             " K10 L10 K9  L9  K8  J8  F6  F7  J10 J11",  # (31 - 40)
         ),
     ]
-
-    def toolchain_prepare(self, fragment, name, **kwargs):
-        overrides = {
-            "nextpnr_opts": "--vopt sspi_as_gpio",
-            "gowin_pack_opts": "--sspi_as_gpio --mspi_as_gpio --ready_as_gpio --done_as_gpio --cpu_as_gpio",
-        }
-
-        return super().toolchain_prepare(fragment, name, **overrides, **kwargs)
-
-    def toolchain_program(self, products, name):
-        with products.extract("{}.fs".format(name)) as bitstream_filename:
-            subprocess.check_call(
-                ["openFPGALoader", "-b", "tangprimer25k", "-m", bitstream_filename]
-            )
 
 
 if __name__ == "__main__":
