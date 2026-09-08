@@ -36,96 +36,33 @@ class TangPrimer25kPlatform(GowinPlatform):
         Connector(
             "J1",
             0,
-            {
-                "S1": "-",  # GND
-                "S2": "L9", "S3": "K9",
-                "S4": "J8", "S5": "K8",
-                "S6": "F7", "S7": "F6",
-                "S8": "-",  # GND
-                "S9": "E8", "S10": "B3",
-                "S11": "C3", "S12": "E3",
-                "S13": "D7", "S14": "-",  # GND
-                "S15": "-", "S16": "-",  # VCCIO6/7 Input
-                "S17": "J11", "S18": "D7",
-                "S19": "J10", "S20": "H11",
-                "S21": "H10", "S22": "G11",
-                "S23": "G10", "S24": "-",  # GND
-                "S25": "D11", "S26": "D10",
-                "S27": "C11", "S28": "C10",
-                "S29": "B11", "S30": "B10",
-                "S31": "-",  # GND
-            },
-        ),
-        Connector(
-            "J1",
-            1,
-            {
-                "S1": "-",  # GND
-                "S2": "H5", "S3": "J5",
-                "S4": "L5", "S5": "K5",
-                "S6": "H8", "S7": "H7",
-                "S8": "G7", "S9": "G8",
-                "S10": "F5", "S11": "G5",
-                "S12": "-", "S13": "-",  # VCCIO0/1
-                "S14": "-",  # GND
-                "S15": "L6", "S16": "K6",
-                "S17": "K7", "S18": "J7",
-                "S19": "L7", "S20": "L8",
-                "S21": "L10", "S22": "K10",
-                "S23": "K11", "S24": "L11",
-                "S25": "-",  # GND
-                "S26": "E11", "S27": "E10",
-                "S28": "A11", "S29": "A10",
-                "S30": "-",  # GND
-            },
+            # GND GND
+            " -   -   L9  H5  K9  J5  J8  L5  K8  K5"  # ( 1 - 10)
+            #                 GND
+            " F7  H8  F6  H7  -   G7  E8  G8  B3  F5"  # (11 - 20)
+            #             VCCIO0/1    GND GND VCCIO6/7
+            " C3  G5  E3  -   D7  -   -   -   -   L6"  # (21 - 30)
+            " -   K6  J11 K7  J10 J7  H11 L7  H10 L8"  # (31 - 40)
+            #                 GND                 GND
+            " G11 L10 G10 K10 -   K11 D11 L11 D10 -"  #  (41 - 50)
+            #                                 GND GND
+            " C11 E11 C10 E10 B11 A11 B10 A10 -   -",  #    (51 - 59)
         ),
         Connector(
             "J2",
             0,
-            {
-                "S1": "-",  # GND
-                "S2": "B2", "S3": "C2",
-                "S4": "F2", "S5": "F1",
-                "S6": "A1", "S7": "DB",
-                "S8": "E1", "S9": "D1",
-                "S10": "-",  # GND
-                "S11": "C1", "S12": "B1",
-                "S13": "A2", "S14": "A3",
-                # MIPI D-PHY Pairs
-                "S15": "-",  # GND
-                "D0P": "D3", "D0N": "D3",
-                "S18": "-",  # GND
-                "D1P": "CK", "D1N": "CK",
-                "S21": "-",  # GND
-                "D2P": "D2", "D2N": "D2",
-                "S24": "-",  # GND
-                "D3P": "D1", "D3N": "D1",
-                "S27": "-",  # GND
-                "D4P": "D0", "D4N": "D0",
-                "S30": "-",  # GND
-            },
-        ),
-        Connector(
-            "J2",
-            1,
-            {
-                "S1": "-", "S2": "-",  # VCCIO2/3
-                "S3": "L2", "S4": "L1",
-                "S5": "K1", "S6": "K2",
-                "S7": "J4", "S8": "K4",
-                "S9": "G2", "S10": "G1",
-                "S11": "L4", "S12": "L3",
-                "S13": "J1", "S14": "J2",
-                "S15": "G4", "S16": "H4",
-                "S17": "H1", "S18": "H2",
-                "S19": "-", "S20": "-",  # 1V8
-                "S21": "-", "S22": "-",  # 2V5
-                "S23": "-", "S24": "-",  # 3V3
-                "S25": "-",  # 3V3
-                "S26": "-",  # 5V
-                "S27": "-", "S28": "-",  # 5V
-                "S29": "-", "S30": "-",  # 5V
-            },
+            # GND VCCIO2/3
+            " -   -   B2  -   C2  L2  F2  L1  F1  K1"  # ( 1 - 10)
+            #                                 GND
+            " A1  K2  D8  J4  E1  K4  D1  G2  -   G1"  # (11 - 20)
+            #                                 GND
+            " C1  L4  B1  L3  A2  J1  A3  J2  -   G4"  # (21 - 30)
+            #                 GND                 GND
+            " D3P H4  D3N H1  -   H2  D2P -   D2N -"  #  (31 - 40)
+            #                     GND
+            " -   -   CKP -   CKN -   -   -   D1P -"  #  (41 - 50)
+            #     GND                         GND 5V
+            " D1N -   -   -   D0P -   -   D0N -   -",  # (51 - 59)
         ),
     ]
 
@@ -147,7 +84,7 @@ class TangPrimer25kPlatform(GowinPlatform):
 class TangPrimer25kDockPlatform(TangPrimer25kPlatform):
     resources = TangPrimer25kPlatform.resources + [
         *ButtonResources(
-            pins={0: "S21", 1: "S20"},
+            pins={0: "37", 1: "39"},
             invert=True,
             conn=("J1", 0),
             attrs=Attrs(
@@ -155,7 +92,7 @@ class TangPrimer25kDockPlatform(TangPrimer25kPlatform):
             ),
         ),
         *LEDResources(
-            pins={0: "S9", 1: "S13"},
+            pins={0: "17", 1: "25"},
             invert=False,
             conn=("J1", 0),
             attrs=Attrs(IO_TYPE="LVCMOS33"),
@@ -163,9 +100,9 @@ class TangPrimer25kDockPlatform(TangPrimer25kPlatform):
         Resource(
             "usb",
             0,
-            Subsignal("d_p", Pins("S15", conn=("J1", 1), dir="io")),
-            Subsignal("d_n", Pins("S16", conn=("J1", 1), dir="io")),
-            Subsignal("pullup", Pins("S9", dir="o", conn=("J1", 0))),
+            Subsignal("d_p", Pins("30", conn=("J1", 1), dir="io")),
+            Subsignal("d_n", Pins("32", conn=("J1", 1), dir="io")),
+            Subsignal("pullup", Pins("17", conn=("J1", 0), dir="o")),
             Attrs(IO_TYPE="LVCMOS33", DRIVE="4", PULLMODE="NONE"),
         ),
     ]
